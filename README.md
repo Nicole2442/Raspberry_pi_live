@@ -1,2 +1,2 @@
 # Nicole-makeblock
-Makeblock robot project
+Makeblock robot project for logistics trial
