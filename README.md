@@ -47,12 +47,12 @@ Raspberry connect with makeblock:
     
     c. Firmware:
     
-    Upload /serial_test/serial_test/serial_test.ino (modified from jafletch's makeblock-serial)
+    Upload /serial_test/serial_test/serial_test.ino (modified from Makeblock-official/RaspberryShield)
     
     d. Python on Raspberry Pi:
     
     Change "ser = serial.Serial('/dev/ttyAMA0', 115200)" to the specific device (e.g. '/dev/ttyUSB0') in file rpi_serial.py;
-    Run /serial_test/demo_dcmotor.py (modified from jafletch's makeblock-serial)
+    Run /serial_test/demo_dcmotor.py (modified from Makeblock-official/RaspberryShield)
     
 
 
