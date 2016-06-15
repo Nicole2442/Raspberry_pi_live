@@ -28,4 +28,9 @@ Raspberry connect with makeblock:
     
     Note: need to check "/dev/tty*" device, sometimes the device is recognized as '/dev/ttyUSB0'
 
+6. Test according to the link: https://github.com/jafletch/makeblock-serial
+
+    Note: 
+    a. 
+
 
