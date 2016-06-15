@@ -30,7 +30,29 @@ Raspberry connect with makeblock:
 
 6. Test according to the link: https://github.com/jafletch/makeblock-serial
 
+    Primarily test for serial communication (USB cable) between Makeblock Orion and Raspberry Pi based on Python
+
     Note: 
-    a. 
+    a. Serial data: 
+    
+    Raspberry Pi is wired with Makeblock Orion through USB port; 
+    This USB is recognized as "/dev/ttyUSB0" in Raspberry Pi; 
+    This USB is recognized as "Serial" in Makeblock Orion; 
+    This USB cable is not for power supply
+    
+    b. Power supply:
+    
+    If motor is used, Makeblock Orion must need +9v power supply;
+    Raspberry Pi need the micro USB or Me Shield to be powered (Raspberry Pi cannot be powered by the USB cable for serial data transmission)
+    
+    c. Firmware:
+    
+    Upload /serial_demo/firmware/firmware.ino (modified from jafletch's makeblock-serial)
+    
+    d. Python on Raspberry Pi:
+    
+    Change "ser = serial.Serial('/dev/ttyAMA0', 115200)" to the specific device (e.g. '/dev/ttyUSB0') in file rpi_serial.py;
+    Run /serial_demo/demo_dcmotor.py (modified from jafletch's makeblock-serial)
+    
 
 
