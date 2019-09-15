@@ -168,7 +168,6 @@ Note: <b>USB camera</b> is used in this situation
  ```
  wget https://github.com/jacksonliam/mjpg-streamer/archive/master.zip
  unzip mjpg-streamer-master.zip
-
  ```
  3. Build the mjpg-streamer
  
