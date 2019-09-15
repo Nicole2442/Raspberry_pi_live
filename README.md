@@ -30,10 +30,10 @@ sudo raspi-config
 ```
 sudo nano/etc/modules
 ```   
-Add 
+Add the following content in the last line.      
 ```
 bcm2835-v4l2
-```in the last line.  
+``` 
 Save the file and restart the Raspberry Pi:   
 ```   
 sudo reboot
@@ -48,19 +48,18 @@ raspistill -o test.jpg
 ```
   
 6.2 USB camera.    
-
 input the command line:   
 ```
 lsusb
 ```   
 you can see the output like this:    
-   ![img](http://ww3.sinaimg.cn/large/006y8mN6ly1g6yu8so3ncj30qk04qq5y.jpg)   
-   or you can input the other command line:     
-   ```
-   ls /dev
-   ```  
-   you can see video0 is in the device list and the output like this:   
-   ![img](http://ww1.sinaimg.cn/large/006y8mN6ly1g6yuc133jpj306s044gm6.jpg)
+![img](http://ww3.sinaimg.cn/large/006y8mN6ly1g6yu8so3ncj30qk04qq5y.jpg)   
+Or you can input the other command line:     
+```
+ls /dev
+```  
+you can see video0 is in the device list and the output like this:   
+![img](http://ww1.sinaimg.cn/large/006y8mN6ly1g6yuc133jpj306s044gm6.jpg)
 
 ## Live streaming based on Nginx and RTMP
 Note: only <b>camera module</b> is used in this situation
@@ -71,27 +70,27 @@ Software preparation:
 
 1. Install Nginx and RTMP module.   
 
- ```
-	sudo apt-get update  
-	sudo apt-get -y install nginx 
-	sudo apt-get -y remove nginx
-	sudo apt-get clean
+```
+sudo apt-get update  
+sudo apt-get -y install nginx 
+sudo apt-get -y remove nginx
+sudo apt-get clean
 
-	sudo rm -rf /etc/nginx/*
-	sudo apt-get install -y curl build-essential libpcre3 libpcre3-dev libpcre++-dev zlib1g-dev libcurl4-openssl-dev libssl-dev
-	sudo mkdir -p /var/www
+sudo rm -rf /etc/nginx/*
+sudo apt-get install -y curl build-essential libpcre3 libpcre3-dev libpcre++-dev zlib1g-dev libcurl4-openssl-dev libssl-dev
+sudo mkdir -p /var/www
 	
-	mkdir -p /nginx_src
-	cd /nginx_src
-	wget http://nginx.org/download/nginx-1.11.8.tar.gz
-	wget https://github.com/arut/nginx-rtmp-module/archive/master.zip
-	tar -zxvf nginx-1.11.8.tar.gz
-	unzip master.zip
-	cd nginx-1.11.8
-	./configure --prefix=/var/www --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --with-http_ssl_module --without-http_proxy_module --add-module=/home/pi/nginx_src/nginx-rtmp-module-master
-	make
-	sudo make install
- ```
+mkdir -p /nginx_src
+cd /nginx_src
+wget http://nginx.org/download/nginx-1.16.1.tar.gz
+wget https://github.com/arut/nginx-rtmp-module/archive/master.zip
+tar -zxvf nginx-1.16.1.tar.gz
+unzip master.zip
+cd nginx-1.11.8
+./configure --prefix=/var/www --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --with-http_ssl_module --without-http_proxy_module --add-module=/home/pi/nginx_src/nginx-rtmp-module-master
+make
+sudo make install
+```
 After installation, use 
 ```
 nginx -V
@@ -100,47 +99,49 @@ to check the verion of nginx.
 
 2. Configure Nginx
 
-	```
-	/etc/nginx/nginx .conf
-	```
-	Add the following content in the end.
+```
+/etc/nginx/nginx .conf
+```
+Add the following content in the end.
 	
-	```
-	rtmp {
-   		server {
+```
+rtmp {
+	server {
        		listen 1935;
        		chunk_size 4096;
        		application live {
-          		live on;
-          		record off;
+        		live on;
+        		record off;
         	}	
     	}
-   }
-	```
-	Restart the Nginx server
+}
+```
+Restart the Nginx server
 	
-	```
-	sudo service nginx start
-	```
+```
+sudo service nginx start
+```
+
 3. Install avconv and GStreamer
 
-	```
-	sudo apt-get update
-	sudo apt-get install libav-tools
-	sudo apt-get install gstreamer1.0-tools
-	sudo apt-get install libgstreamer1.0-0 libgstreamer1.0-0-dbg libgstreamer1.0-dev liborc-0.4-0 liborc-0.4-0-dbg liborc-0.4-dev liborc-0.4-doc gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gstreamer1.0-alsa gstreamer1.0-doc gstreamer1.0-omx gstreamer1.0-plugins-bad gstreamer1.0-plugins-bad-dbg gstreamer1.0-plugins-bad-doc gstreamer1.0-plugins-base gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-base-dbg gstreamer1.0-plugins-base-doc gstreamer1.0-plugins-good gstreamer1.0-plugins-good-dbg gstreamer1.0-plugins-good-doc gstreamer1.0-plugins-ugly gstreamer1.0-plugins-ugly-dbg gstreamer1.0-plugins-ugly-doc gstreamer1.0-pulseaudio gstreamer1.0-tools gstreamer1.0-x libgstreamer-plugins-bad1.0-0 libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-base1.0-0 libgstreamer-plugins-base1.0-dev
-	```
+```
+sudo apt-get update
+sudo apt-get install libav-tools
+sudo apt-get install gstreamer1.0-tools
+sudo apt-get install libgstreamer1.0-0 libgstreamer1.0-0-dbg libgstreamer1.0-dev liborc-0.4-0 liborc-0.4-0-dbg liborc-0.4-dev liborc-0.4-doc gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gstreamer1.0-alsa gstreamer1.0-doc gstreamer1.0-omx gstreamer1.0-plugins-bad gstreamer1.0-plugins-bad-dbg gstreamer1.0-plugins-bad-doc gstreamer1.0-plugins-base gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-base-dbg gstreamer1.0-plugins-base-doc gstreamer1.0-plugins-good gstreamer1.0-plugins-good-dbg gstreamer1.0-plugins-good-doc gstreamer1.0-plugins-ugly gstreamer1.0-plugins-ugly-dbg gstreamer1.0-plugins-ugly-doc gstreamer1.0-pulseaudio gstreamer1.0-tools gstreamer1.0-x libgstreamer-plugins-bad1.0-0 libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-base1.0-0 libgstreamer-plugins-base1.0-dev
+```
 4. Push stream using avconv and GStreamer
 
-	Because avconv using software-based encoding and decoding, the CPU cost is high.  
-	```
-	avconv -f video4linux2 -r 24 -i /dev/video0 -f flv rtmp://localhost:1935/live &
-	```
+Because avconv using software-based encoding and decoding, the CPU cost is high.  
+```
+avconv -f video4linux2 -r 24 -i /dev/video0 -f flv rtmp://localhost:1935/live &
+```
 	
-	GSteamer uses hardware-based encoding and decoding, the CPU cost is low.  
-	```
-	gst-launch-1.0 -v v4l2src device=/dev/video0 ! 'video/x-raw, width=1024, height=768, framerate=30/1' ! queue ! videoconvert ! omxh264enc ! h264parse ! flvmux ! rtmpsink location='rtmp://address_raspberry_pi/live live=1' &
-	```
+GSteamer uses hardware-based encoding and decoding, the CPU cost is low.  
+```
+gst-launch-1.0 -v v4l2src device=/dev/video0 ! 'video/x-raw, width=1024, height=768, framerate=30/1' ! queue ! videoconvert ! omxh264enc ! h264parse ! flvmux ! rtmpsink location='rtmp://address_raspberry_pi/live live=1' &
+```
+
 5. View the stream
 
 	1. Use RTMP supported player, like [VLC](https://www.videolan.org/vlc/):  
