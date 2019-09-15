@@ -46,14 +46,14 @@ And take a picture using camera module:
 ```
 raspistill -o test.jpg
 ```
-    
-	6.2 USB camera.    
+  
+6.2 USB camera.    
 
-   input the command line:   
-   ```
-   lsusb
-   ```   
-   you can see the output like this:    
+input the command line:   
+```
+lsusb
+```   
+you can see the output like this:    
    ![img](http://ww3.sinaimg.cn/large/006y8mN6ly1g6yu8so3ncj30qk04qq5y.jpg)   
    or you can input the other command line:     
    ```
